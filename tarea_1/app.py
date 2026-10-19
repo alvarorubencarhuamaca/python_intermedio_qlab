@@ -171,3 +171,23 @@ st.dataframe(
     use_container_width=True,
     hide_index=True
 )
+# Preparar archivo CSV descargable
+columnas_descarga = [
+    "titular",
+    "bajada",
+    "etiqueta",
+    "fecha"
+]
+
+csv_descarga = (
+    df_filtrado[columnas_descarga]
+    .to_csv(index=False)
+    .encode("utf-8-sig")
+)
+
+st.download_button(
+    label="⬇️ Descargar noticias filtradas",
+    data=csv_descarga,
+    file_name="noticias_filtradas.csv",
+    mime="text/csv"
+)
