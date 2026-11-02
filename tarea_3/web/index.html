@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inversión pública en el Perú · ¿quién deja el dinero sin gastar?</title>
+<meta name="description" content="Dashboard de la ejecución de la inversión pública por departamento y nivel de gobierno, 2019-2026. Datos de Consulta Amigable (MEF).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f6f8; --card:#ffffff; --ink:#14213d; --muted:#5b6475; --line:#e3e6ec;
+    --accent:#c8102e; --blue:#1d4e89; --teal:#2a9d8f; --amber:#e9a23b; --grey:#9aa3b2;
+  }
+  *{box-sizing:border-box}
+  body{overflow-x:hidden;margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}
+  a{color:var(--blue)}
+  header{background:linear-gradient(135deg,#14213d 0%,#1d4e89 100%);color:#fff;padding:36px 16px 30px}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+  header .wrap{padding:0}
+  .kicker{text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:600;opacity:.8}
+  h1{font-size:clamp(26px,4vw,40px);line-height:1.15;margin:8px 0 12px;font-weight:800}
+  .pregunta{font-size:clamp(16px,2vw,19px);max-width:880px;opacity:.95;margin:0 0 14px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;opacity:.85}
+  .meta span::before{content:"● ";color:var(--amber)}
+  nav{position:sticky;top:0;z-index:20;background:rgba(245,246,248,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+  .controles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:12px;padding:12px 0;align-items:end}
+  .controles label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:4px}
+  select,button{width:100%;font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+  button{cursor:pointer;background:var(--ink);color:#fff;border:none;font-weight:600;white-space:nowrap}
+  button:hover{opacity:.9}
+  .seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+  .seg button{flex:1 1 0;min-width:0;background:#fff;color:var(--ink);border-radius:0;border-right:1px solid var(--line);padding:8px 4px;font-weight:500;font-size:13px}
+  .seg button:last-child{border-right:none}
+  .seg button.on{background:var(--blue);color:#fff}
+  main{padding:20px 0 40px}
+  .kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:16px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .kpi .t{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+  .kpi .v small{font-size:13px;font-weight:600;color:var(--muted);margin-left:6px}
+  .kpi .v{white-space:nowrap;font-size:clamp(22px,2.6vw,30px);font-weight:800;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+  .kpi .s{font-size:12.5px;color:var(--muted)}
+  .up{color:#1b7f4b;font-weight:600}.down{color:var(--accent);font-weight:600}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .card{overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+  .card h2{font-size:16px;margin:0 0 2px}
+  .card p.sub{font-size:13px;color:var(--muted);margin:0 0 8px}
+  .chart{width:100%;height:420px}
+  .tall .chart{height:560px}
+  .aviso{background:#fff7e6;border:1px solid #f3d9a4;color:#7a4b00;border-radius:10px;padding:10px 14px;font-size:13.5px;margin-bottom:16px;display:none}
+  section.texto{margin-top:28px}
+  section.texto h2{font-size:22px;margin:0 0 12px}
+  .hallazgos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  .hall{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:12px;padding:16px}
+  .hall .n{font-size:30px;font-weight:800;color:var(--blue);line-height:1}
+  .hall h3{font-size:16px;margin:8px 0 6px}
+  .hall p{font-size:14px;margin:0;color:#2b3446}
+  .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  .cols .card p,.cols .card li{font-size:14px}
+  .cols ul{padding-left:18px;margin:6px 0}
+  footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:13px;color:var(--muted)}
+  @media (max-width:980px){
+    .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid,.hallazgos,.cols{grid-template-columns:1fr}
+    .controles{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .controles>div:nth-child(2){grid-column:1/-1;order:-1}
+    nav{position:static}
+    .tall .chart{height:460px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="kicker">Tarea 3 · Python Intermedio · Dashboard de datos públicos</div>
+    <h1>Inversión pública en el Perú: ¿quién deja el dinero sin gastar?</h1>
+    <p class="pregunta"><strong>Pregunta:</strong> ¿Cómo evolucionó la ejecución del presupuesto de inversión pública entre 2019 y 2026, y qué niveles de gobierno y departamentos se quedan atrás?</p>
+    <div class="meta">
+      <span>Cobertura: 25 departamentos del Perú</span>
+      <span>Periodo: 2019–2026 (2026 parcial)</span>
+      <span>Fuente: Consulta Amigable – MEF</span>
+      <span id="fecha"></span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap controles">
+    <div><label for="f-anio">Año</label><select id="f-anio"></select></div>
+    <div><label>Nivel de gobierno</label>
+      <div class="seg" id="f-nivel">
+        <button data-v="T" class="on">Todos</button><button data-v="E">Nacional</button><button data-v="R">Regional</button><button data-v="M">Local</button>
+      </div>
+    </div>
+    <div><label for="f-ind">Indicador del mapa y ranking</label>
+      <select id="f-ind">
+        <option value="avance">Avance de ejecución (%)</option>
+        <option value="no_ejec">Monto no ejecutado (S/ millones)</option>
+        <option value="pim">Presupuesto de inversión – PIM (S/ millones)</option>
+        <option value="share">Inversión como % del presupuesto total</option>
+      </select></div>
+    <div><label for="f-dep">Departamento</label><select id="f-dep"></select></div>
+    <div><button id="descargar" title="Descargar los datos filtrados en CSV">⬇ CSV</button></div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div class="aviso" id="aviso">⚠️ <strong>2026 es un año en curso:</strong> el devengado llega solo hasta la fecha de descarga, por eso el avance aún es bajo. Compáralo con cuidado con los años cerrados.</div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="t">Presupuesto de inversión (PIM)</div><div class="v" id="k-pim">–</div><div class="s" id="k-pim-s"></div></div>
+    <div class="kpi"><div class="t">Inversión ejecutada (devengado)</div><div class="v" id="k-dev">–</div><div class="s" id="k-dev-s"></div></div>
+    <div class="kpi"><div class="t">Avance de ejecución</div><div class="v" id="k-av">–</div><div class="s" id="k-av-s"></div></div>
+    <div class="kpi"><div class="t">Dinero no ejecutado</div><div class="v" id="k-no">–</div><div class="s" id="k-no-s"></div></div>
+    <div class="kpi"><div class="t">Menor avance</div><div class="v" id="k-min" style="font-size:20px">–</div><div class="s" id="k-min-s"></div></div>
+  </div>
+
+  <div class="grid">
+    <div class="card tall"><h2 id="t-mapa">Mapa</h2><p class="sub" id="s-mapa"></p><div id="g-mapa" class="chart"></div></div>
+    <div class="card tall"><h2 id="t-rank">Ranking</h2><p class="sub" id="s-rank">Haz clic en una barra o en el mapa para seleccionar el departamento.</p><div id="g-rank" class="chart"></div></div>
+    <div class="card"><h2 id="t-evol">Evolución del avance de ejecución</h2><p class="sub">Devengado / PIM de inversión, por nivel de gobierno. La línea gris es el total.</p><div id="g-evol" class="chart"></div></div>
+    <div class="card"><h2 id="t-barras">Presupuesto vs. ejecución</h2><p class="sub">PIM de inversión dividido en lo ejecutado y lo no ejecutado (S/ millones).</p><div id="g-barras" class="chart"></div></div>
+    <div class="card" style="grid-column:1/-1"><h2>¿Más presupuesto, menos ejecución?</h2><p class="sub" id="s-disp">Cada burbuja es un departamento: PIM de inversión (eje X, escala log.) vs. avance de ejecución. El tamaño es el monto no ejecutado.</p><div id="g-disp" class="chart"></div></div>
+  </div>
+
+  <section class="texto">
+    <h2>Tres hallazgos principales</h2>
+    <div class="hallazgos">
+      <div class="hall"><div class="n">64% → 84%</div><h3>La ejecución mejoró mucho desde 2019</h3>
+        <p>El avance de la inversión pasó de 64.4% (2019) a 83.7% (2025). El monto ejecutado casi se duplicó: de S/ 33.0 mil millones a S/ 61.6 mil millones (+87%). Aun así, en 2025 quedaron <strong>S/ 12.0 mil millones sin ejecutar</strong>.</p></div>
+      <div class="hall" style="border-left-color:var(--accent)"><div class="n" style="color:var(--accent)">69%</div><h3>Los gobiernos locales son el cuello de botella</h3>
+        <p>Las municipalidades manejan el mayor presupuesto de inversión (S/ 30.7 mil millones en 2025), pero ejecutan solo 72.9%, frente a 90.3% del Gobierno Nacional y 93.5% de los regionales. Concentran S/ 8.3 de los 12.0 mil millones no ejecutados (69%). Además, su PIM casi duplica su PIA (1.9 veces): reciben buena parte del dinero durante el año.</p></div>
+      <div class="hall" style="border-left-color:var(--teal)"><div class="n" style="color:var(--teal)">13 pp</div><h3>Brechas territoriales que persisten</h3>
+        <p>En 2025, Tacna (89.6%) y Piura (88.9%) lideran, mientras Ica y Áncash (76.5%) quedan últimos: 13 puntos de diferencia. Piura es la que más mejoró desde 2019 (+37 pp) y Ucayali la única que retrocedió (82.1% → 80.3%).</p></div>
+    </div>
+    <p style="font-size:14px;color:var(--muted);margin-top:12px"><strong>Dato 2026 (parcial, al 2 de noviembre):</strong> el avance total va en 64.4% y el de los gobiernos locales en 53.5%. Con dos meses por delante, el patrón de 2025 se repite: las municipalidades van más atrás.</p>
+  </section>
+
+  <section class="texto">
+    <div class="cols">
+      <div class="card"><h2>Metodología</h2>
+        <ul>
+          <li>Se consultó Consulta Amigable (MEF) para cada año (2019–2026), nivel de gobierno (Nacional, Regional, Local) y departamento (25), desagregando por genérica de gasto: 600 consultas.</li>
+          <li><strong>Inversión</strong> = genérica 2.6 “Adquisición de activos no financieros” (obras, infraestructura, equipamiento).</li>
+          <li><strong>Avance</strong> = devengado / PIM. <strong>No ejecutado</strong> = PIM − devengado. <strong>% inversión</strong> = PIM de inversión / PIM total.</li>
+          <li>Departamento = ubicación geográfica de la meta presupuestal. Se excluyen montos multidepartamentales o en el exterior.</li>
+          <li>Procesamiento en Python (pandas); visualización con Plotly.js.</li>
+        </ul></div>
+      <div class="card"><h2>Fuentes</h2>
+        <ul>
+          <li>MEF – <a href="https://apps5.mineco.gob.pe/transparencia/Navegador/default.aspx" target="_blank" rel="noopener">Consulta Amigable, Consulta de Ejecución del Gasto</a>.</li>
+          <li>Límites departamentales: <a href="https://github.com/juaneladio/peru-geojson" target="_blank" rel="noopener">juaneladio/peru-geojson</a> (basado en INEI).</li>
+          <li>Código y datos: <a href="https://github.com/alvarorubencarhuamaca/python_intermedio_qlab/tree/main/tarea_3" target="_blank" rel="noopener">repositorio en GitHub</a>.</li>
+        </ul></div>
+      <div class="card"><h2>Limitaciones</h2>
+        <ul>
+          <li>2026 está en curso: su devengado no es comparable con años cerrados.</li>
+          <li>Devengado mide gasto registrado, no calidad ni culminación de obras.</li>
+          <li>La genérica 2.6 incluye equipamiento de actividades, no solo proyectos de inversión.</li>
+          <li>Montos nominales (sin ajustar por inflación) y sin dividir entre población.</li>
+          <li>Los datos del MEF se actualizan; las cifras corresponden a la fecha de descarga.</li>
+        </ul></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">Elaborado por Alvaro Carhuamaca · Tarea 3 del curso Python Intermedio (QLAB) · Datos públicos del MEF. Análisis y dashboard construidos con apoyo de IA (Claude) y verificados contra la fuente.</div></footer>
+
+<script src="assets/plotly.min.js"></script>
+<script src="data/datos.js"></script>
+<script>
+(function(){
+  const D = window.DATOS, P = D.panel;
+  const NIV = {E:"Nacional", R:"Regional", M:"Local"};
+  const COL = {E:"#1d4e89", R:"#2a9d8f", M:"#c8102e", T:"#9aa3b2"};
+  const ANIOS = [...new Set(P.map(r=>r.anio))].sort();
+  const DEPS = [...new Set(P.map(r=>r.departamento))].sort();
+  const st = {anio: 2025, nivel: "T", ind: "avance", dep: "TODOS"};
+  const $ = id => document.getElementById(id);
+  const titulo = s => s.toLowerCase().replace(/(^|\s)\S/g, c => c.toUpperCase()).replace(/\bDe\b/g,"de").replace(/\bDel\b/g,"del");
+  const fmtMM = v => "S/ " + (v/1e9).toLocaleString("es-PE",{minimumFractionDigits:1,maximumFractionDigits:1}) + " mil mill.";
+  const bigMM = v => "S/ " + (v/1e9).toLocaleString("es-PE",{minimumFractionDigits:1,maximumFractionDigits:1}) + "<small>mil mill.</small>";
+  const fmtP = v => v.toLocaleString("es-PE",{minimumFractionDigits:1,maximumFractionDigits:1}) + "%";
+  const cfg = {displaylogo:false, responsive:true, displayModeBar: window.innerWidth>700 ? "hover" : false, modeBarButtonsToRemove:["lasso2d","select2d"]};
+  const font = {family:"Inter, system-ui, sans-serif", color:"#14213d", size:12};
+
+  $("fecha").textContent = "Descarga: " + D.fecha_descarga;
+  $("f-anio").innerHTML = ANIOS.map(a=>`<option value="${a}" ${a===st.anio?"selected":""}>${a}${a===2026?" (parcial)":""}</option>`).join("");
+  $("f-dep").innerHTML = `<option value="TODOS">Todo el Perú</option>` + DEPS.map(d=>`<option value="${d}">${titulo(d)}</option>`).join("");
+
+  function filas({anio=null, nivel=st.nivel, dep=null}={}){
+    return P.filter(r => (anio===null || r.anio===anio) && (nivel==="T" || r.nivel===nivel) && (dep===null || dep==="TODOS" || r.departamento===dep));
+  }
+  function suma(rs){
+    const o = {pim:0, dev:0, pia:0, tot:0};
+    rs.forEach(r=>{o.pim+=r.pim_inv; o.dev+=r.devengado_inv; o.pia+=r.pia_inv; o.tot+=r.pim_total;});
+    o.av = o.pim ? 100*o.dev/o.pim : 0; o.no = o.pim-o.dev; o.share = o.tot ? 100*o.pim/o.tot : 0;
+    return o;
+  }
+  function porDep(anio, nivel){
+    return DEPS.map(d => ({dep:d, ...suma(filas({anio, nivel, dep:d}))}));
+  }
+  const IND = {
+    avance:{t:"Avance de ejecución (%)", f:o=>o.av, fmt:v=>fmtP(v), esc:[[0,"#c8102e"],[0.5,"#f6d36b"],[1,"#2a9d8f"]], rev:false},
+    no_ejec:{t:"Monto no ejecutado (S/ millones)", f:o=>o.no/1e6, fmt:v=>"S/ "+Math.round(v).toLocaleString("es-PE")+" mill.", esc:"Reds", rev:false},
+    pim:{t:"PIM de inversión (S/ millones)", f:o=>o.pim/1e6, fmt:v=>"S/ "+Math.round(v).toLocaleString("es-PE")+" mill.", esc:"Blues", rev:false},
+    share:{t:"Inversión como % del presupuesto total", f:o=>o.share, fmt:v=>fmtP(v), esc:"Purples", rev:false},
+  };
+  const nomNivel = () => st.nivel==="T" ? "todos los niveles" : "Gobierno " + NIV[st.nivel].toLowerCase();
+  const nomDep = () => st.dep==="TODOS" ? "Perú" : titulo(st.dep);
+
+  function kpis(){
+    const a = suma(filas({anio:st.anio, dep:st.dep}));
+    const prev = st.anio>ANIOS[0] ? suma(filas({anio:st.anio-1, dep:st.dep})) : null;
+    $("k-pim").innerHTML = bigMM(a.pim);
+    $("k-pim-s").textContent = `PIA: ${fmtMM(a.pia)} · ${fmtP(a.share)} del presupuesto total`;
+    $("k-dev").innerHTML = bigMM(a.dev);
+    if(prev && prev.dev){ const v=100*(a.dev/prev.dev-1); $("k-dev-s").innerHTML = `<span class="${v>=0?"up":"down"}">${v>=0?"▲":"▼"} ${fmtP(Math.abs(v))}</span> vs. ${st.anio-1}${st.anio===2026?" (año incompleto)":""}`; }
+    else $("k-dev-s").textContent = "Primer año de la serie";
+    $("k-av").textContent = fmtP(a.av);
+    if(prev){ const d=a.av-prev.av; $("k-av-s").innerHTML = `<span class="${d>=0?"up":"down"}">${d>=0?"▲":"▼"} ${Math.abs(d).toFixed(1)} pp</span> vs. ${st.anio-1}`; }
+    else $("k-av-s").textContent = nomDep() + " · " + nomNivel();
+    $("k-no").innerHTML = bigMM(a.no);
+    $("k-no-s").textContent = `${fmtP(100-a.av)} del PIM de inversión`;
+    const ds = porDep(st.anio, st.nivel).filter(o=>o.pim>0).sort((x,y)=>x.av-y.av);
+    $("k-min").textContent = titulo(ds[0].dep);
+    $("k-min-s").textContent = `${fmtP(ds[0].av)} · mayor: ${titulo(ds[ds.length-1].dep)} (${fmtP(ds[ds.length-1].av)})`;
+  }
+
+  function mapa(){
+    const ind = IND[st.ind], ds = porDep(st.anio, st.nivel);
+    $("t-mapa").textContent = `${ind.t} · ${st.anio}`;
+    $("s-mapa").textContent = `Inversión pública por departamento, ${nomNivel()}.`;
+    const z = ds.map(o=>ind.f(o));
+    const tr = {type:"choropleth", geojson:D.geo, featureidkey:"id", locations:ds.map(o=>o.dep), z,
+      colorscale:ind.esc, reversescale:ind.rev, marker:{line:{color:"#fff",width:0.8}},
+      text: ds.map(o=>`<b>${titulo(o.dep)}</b><br>${ind.t}: ${ind.fmt(ind.f(o))}<br>PIM: S/ ${Math.round(o.pim/1e6).toLocaleString("es-PE")} mill.<br>Avance: ${fmtP(o.av)}`),
+      hoverinfo:"text", colorbar:{thickness:12, len:.7, x:0.98, tickfont:{size:11}}};
+    if(st.ind==="avance"){ tr.zmin = Math.max(30, Math.floor(Math.min(...z)/5)*5); tr.zmax = 100; }
+    const sel = st.dep!=="TODOS" ? [{type:"choropleth", geojson:D.geo, featureidkey:"id", locations:[st.dep], z:[1],
+      colorscale:[[0,"rgba(0,0,0,0)"],[1,"rgba(0,0,0,0)"]], showscale:false, marker:{line:{color:"#14213d",width:3}}, hoverinfo:"skip"}] : [];
+    Plotly.react("g-mapa", [tr, ...sel], {margin:{l:0,r:0,t:0,b:0}, font, paper_bgcolor:"rgba(0,0,0,0)",
+      geo:{fitbounds:"locations", visible:false, projection:{type:"mercator"}, bgcolor:"rgba(0,0,0,0)"}, dragmode:false}, cfg);
+  }
+
+  function ranking(){
+    const ind = IND[st.ind];
+    const ds = porDep(st.anio, st.nivel).filter(o=>o.pim>0).sort((a,b)=>ind.f(a)-ind.f(b));
+    $("t-rank").textContent = `Ranking por departamento · ${st.anio}`;
+    $("s-rank").textContent = (st.ind==="avance" ? "Rojo: por debajo del promedio nacional. " : "") + "Haz clic en una barra o en el mapa para seleccionar un departamento.";
+    const total = suma(filas({anio:st.anio}));
+    const colores = ds.map(o => o.dep===st.dep ? "#e9a23b" : (st.ind==="avance" && o.av<total.av ? "#c8102e" : "#1d4e89"));
+    const shapes = st.ind==="avance" ? [{type:"line", x0:total.av, x1:total.av, yref:"paper", y0:0, y1:1, line:{color:"#14213d",dash:"dot",width:1.5}}] : [];
+    const ann = st.ind==="avance" ? [{x:total.av, y:1.03, yref:"paper", yanchor:"bottom", text:`Perú ${fmtP(total.av)}`, showarrow:false, font:{size:11}}] : [];
+    Plotly.react("g-rank", [{type:"bar", orientation:"h", y:ds.map(o=>titulo(o.dep)), x:ds.map(o=>ind.f(o)), marker:{color:colores},
+      customdata:ds.map(o=>o.dep), text:ds.map(o=>ind.fmt(ind.f(o))), textposition:"auto", insidetextanchor:"end", textfont:{size:10},
+      hovertemplate:"<b>%{y}</b><br>"+ind.t+": %{text}<extra></extra>"}],
+      {margin:{l:110,r:10,t:30,b:30}, font, paper_bgcolor:"rgba(0,0,0,0)", plot_bgcolor:"rgba(0,0,0,0)", shapes, annotations:ann,
+       xaxis:{gridcolor:"#eef0f4", range: st.ind==="avance"?[0,100]:null}, yaxis:{automargin:true, tickfont:{size:11}}, bargap:.25}, cfg);
+  }
+
+  function evolucion(){
+    $("t-evol").textContent = `Evolución del avance de ejecución · ${nomDep()}`;
+    const niveles = st.nivel==="T" ? ["E","R","M"] : [st.nivel];
+    const tr = niveles.map(n => ({type:"scatter", mode:"lines+markers", name:"Gob. "+NIV[n].toLowerCase(), x:ANIOS,
+      y:ANIOS.map(a=>suma(filas({anio:a, nivel:n, dep:st.dep})).av), line:{color:COL[n], width:3}, marker:{size:7},
+      hovertemplate:"%{x}: %{y:.1f}%<extra>"+NIV[n]+"</extra>"}));
+    tr.push({type:"scatter", mode:"lines", name:"Total", x:ANIOS, y:ANIOS.map(a=>suma(filas({anio:a, nivel:"T", dep:st.dep})).av),
+      line:{color:COL.T, width:2, dash:"dash"}, hovertemplate:"%{x}: %{y:.1f}%<extra>Total</extra>"});
+    Plotly.react("g-evol", tr, {margin:{l:45,r:10,t:10,b:40}, font, paper_bgcolor:"rgba(0,0,0,0)", plot_bgcolor:"rgba(0,0,0,0)",
+      yaxis:{ticksuffix:"%", range:[0,100], gridcolor:"#eef0f4"}, xaxis:{dtick:1, gridcolor:"#eef0f4"},
+      legend:{orientation:"h", y:-0.15}, shapes:[{type:"rect", x0:2025.5, x1:2026.5, yref:"paper", y0:0, y1:1, fillcolor:"#fff3d6", line:{width:0}, layer:"below"}],
+      annotations:[{x:2026, y:0.04, yref:"paper", text:"parcial", showarrow:false, font:{size:10, color:"#7a4b00"}}]}, cfg);
+  }
+
+  function barras(){
+    $("t-barras").textContent = `Presupuesto vs. ejecución · ${nomDep()}, ${nomNivel()}`;
+    const s = ANIOS.map(a=>suma(filas({anio:a, dep:st.dep})));
+    Plotly.react("g-barras", [
+      {type:"bar", name:"Ejecutado (devengado)", x:ANIOS, y:s.map(o=>o.dev/1e6), marker:{color:"#1d4e89"}, hovertemplate:"%{x}: S/ %{y:,.0f} mill.<extra>Ejecutado</extra>"},
+      {type:"bar", name:"No ejecutado", x:ANIOS, y:s.map(o=>o.no/1e6), marker:{color:"#f4a3a8"}, hovertemplate:"%{x}: S/ %{y:,.0f} mill.<extra>No ejecutado</extra>"},
+      {type:"scatter", mode:"text", x:ANIOS, y:s.map(o=>o.pim/1e6), text:s.map(o=>fmtP(o.av)), textposition:"top center", showlegend:false, hoverinfo:"skip", textfont:{size:11}}
+    ], {barmode:"stack", margin:{l:60,r:10,t:20,b:40}, font, paper_bgcolor:"rgba(0,0,0,0)", plot_bgcolor:"rgba(0,0,0,0)",
+       separators:".,", yaxis:{gridcolor:"#eef0f4", title:{text:"S/ millones"}}, xaxis:{dtick:1}, legend:{orientation:"h", y:-0.15}}, cfg);
+  }
+
+  function dispersion(){
+    const ds = porDep(st.anio, st.nivel).filter(o=>o.pim>0);
+    const maxNo = Math.max(...ds.map(o=>o.no));
+    $("s-disp").textContent = `${st.anio}, ${nomNivel()}. Cada burbuja es un departamento: PIM de inversión (eje X, escala logarítmica) vs. avance de ejecución. El tamaño es el monto no ejecutado.`;
+    Plotly.react("g-disp", [{type:"scatter", mode:"markers+text", x:ds.map(o=>o.pim/1e6), y:ds.map(o=>o.av), text:ds.map(o=>titulo(o.dep)),
+      textposition:"top center", textfont:{size:10}, customdata:ds.map(o=>[o.dep, Math.round(o.no/1e6)]),
+      marker:{size:ds.map(o=>8+40*Math.sqrt(Math.max(o.no,0)/maxNo)), color:ds.map(o=>o.dep===st.dep?"#e9a23b":"rgba(29,78,137,.55)"), line:{color:"#fff",width:1}},
+      hovertemplate:"<b>%{text}</b><br>PIM: S/ %{x:,.0f} mill.<br>Avance: %{y:.1f}%<br>No ejecutado: S/ %{customdata[1]:,} mill.<extra></extra>"}],
+      {margin:{l:50,r:10,t:10,b:45}, font, paper_bgcolor:"rgba(0,0,0,0)", plot_bgcolor:"rgba(0,0,0,0)", separators:".,",
+       xaxis:{type:"log", title:{text:"PIM de inversión (S/ millones, escala log.)"}, gridcolor:"#eef0f4"},
+       yaxis:{title:{text:"Avance (%)"}, ticksuffix:"%", gridcolor:"#eef0f4"}}, cfg);
+  }
+
+  function render(){
+    $("aviso").style.display = st.anio===2026 ? "block" : "none";
+    kpis(); mapa(); ranking(); evolucion(); barras(); dispersion();
+  }
+
+  $("f-anio").onchange = e => { st.anio = +e.target.value; render(); };
+  $("f-ind").onchange = e => { st.ind = e.target.value; render(); };
+  $("f-dep").onchange = e => { st.dep = e.target.value; render(); };
+  document.querySelectorAll("#f-nivel button").forEach(b => b.onclick = () => {
+    document.querySelectorAll("#f-nivel button").forEach(x=>x.classList.remove("on")); b.classList.add("on");
+    st.nivel = b.dataset.v; render();
+  });
+  const elegir = dep => { st.dep = (st.dep===dep ? "TODOS" : dep); $("f-dep").value = st.dep; render(); };
+  render();
+  $("g-mapa").on("plotly_click", ev => elegir(ev.points[0].location));
+  $("g-rank").on("plotly_click", ev => elegir(ev.points[0].customdata));
+  $("g-disp").on("plotly_click", ev => elegir(ev.points[0].customdata[0]));
+
+  $("descargar").onclick = () => {
+    const rs = filas({dep:st.dep});
+    const cab = ["anio","nivel","departamento","pia_inv","pim_inv","devengado_inv","avance_pct","pim_total"];
+    const csv = [cab.join(",")].concat(rs.map(r=>[r.anio,r.nivel_nombre,r.departamento,r.pia_inv,r.pim_inv,r.devengado_inv,
+      r.pim_inv?(100*r.devengado_inv/r.pim_inv).toFixed(1):"",r.pim_total].join(","))).join("\n");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob(["﻿"+csv],{type:"text/csv"}));
+    a.download = `inversion_publica_${st.dep.toLowerCase()}_${st.nivel}.csv`; a.click();
+  };
+})();
+</script>
+</body>
+</html>
