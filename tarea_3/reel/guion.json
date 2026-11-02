@@ -2,37 +2,37 @@
   "titulo": "Inversión pública en el Perú",
   "escenas": [
     {
-      "frase": "En dos mil veinticinco, el Estado peruano dejó sin ejecutar doce mil millones de soles destinados a obras e inversión. ¿Quién dejó ese dinero sobre la mesa?",
+      "frase": "En dos mil veinticinco, el Perú dejó sin ejecutar doce mil millones de soles de inversión pública. ¿Quién dejó ese dinero sobre la mesa?",
       "cifra": "S/ 12 mil millones",
       "etiqueta": "Inversión no ejecutada en 2025",
       "imagen": "recursos/escena1.png"
     },
     {
-      "frase": "Con datos de Consulta Amigable del Ministerio de Economía, analicé la inversión pública de los veinticinco departamentos, entre dos mil diecinueve y dos mil veintiséis.",
+      "frase": "Analicé los datos del Ministerio de Economía para los veinticinco departamentos, entre dos mil diecinueve y dos mil veintiséis.",
       "cifra": "25 departamentos",
       "etiqueta": "2019-2026, tres niveles de gobierno",
       "imagen": "recursos/escena2.png"
     },
     {
-      "frase": "La buena noticia: la ejecución mejoró. Pasó de sesenta y cuatro por ciento en dos mil diecinueve a casi ochenta y cuatro por ciento en dos mil veinticinco.",
+      "frase": "La buena noticia: la ejecución subió de sesenta y cuatro a casi ochenta y cuatro por ciento.",
       "cifra": "64% → 84%",
       "etiqueta": "Avance de ejecución de la inversión",
       "imagen": "recursos/escena3.png"
     },
     {
-      "frase": "Pero las municipalidades son el cuello de botella. Manejan el mayor presupuesto de inversión y ejecutan solo setenta y tres por ciento. Concentran casi siete de cada diez soles no ejecutados.",
+      "frase": "Pero las municipalidades se quedan atrás: ejecutan solo setenta y tres por ciento y concentran casi siete de cada diez soles no ejecutados.",
       "cifra": "73%",
       "etiqueta": "Avance de los gobiernos locales en 2025",
       "imagen": "recursos/escena4.png"
     },
     {
-      "frase": "Y las brechas entre regiones siguen: Tacna y Piura superan el ochenta y ocho por ciento, mientras Ica y Áncash se quedan en setenta y seis y medio.",
+      "frase": "Y las brechas siguen: Tacna y Piura superan el ochenta y ocho por ciento; Ica y Áncash se quedan en setenta y seis y medio.",
       "cifra": "13 puntos",
       "etiqueta": "Brecha entre departamentos en 2025",
       "imagen": "recursos/escena5.png"
     },
     {
-      "frase": "Explora los datos de tu región en mi dashboard interactivo. El enlace está en la publicación.",
+      "frase": "Explora los datos de tu región en mi dashboard. El enlace está en la publicación.",
       "cifra": "",
       "etiqueta": "Dashboard: enlace en la publicación",
       "imagen": "recursos/escena6.png"

@@ -90,14 +90,14 @@ python scripts/procesar_datos.py    # genera datos/procesados y web/data/datos.j
 
 ```bash
 cd tarea_3/reel
-python hacer_reel.py --voz mi_voz.m4a --musica recursos/musica.mp3
+python hacer_reel.py --voz mi_voz.wav --musica recursos/musica.mp3
 ```
 
 `hacer_reel.py` reutiliza `reel.py` de la [Sesión 15](https://github.com/d2cml-ai/Data-Science-Python/tree/main/sessions/15-texto-a-reel)
 para la voz clonada (Qwen3-TTS) y los subtítulos (Whisper). Sobre eso arma el video con imágenes del dashboard, un zoom suave,
 subtítulos sincronizados y música de fondo. Las cifras del guion están verificadas en `guion.json` (campo `verificacion`).
 
-**Créditos del reel:** voz generada con IA (Qwen3-TTS) a partir de mi propia voz. Música: _(pegar título, autor y licencia)_.
+**Créditos del reel:** voz generada con IA (Qwen3-TTS) a partir de mi propia voz. Música: «Synthwave» de The_Mountain ([Pixabay](https://pixabay.com/music/), Pixabay Content License).
 Imágenes: capturas del propio dashboard.
 
 ## 8. Uso de inteligencia artificial
