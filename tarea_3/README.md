@@ -2,7 +2,7 @@
 
 **Dashboard:** https://alvarorubencarhuamaca.github.io/python_intermedio_qlab/tarea_3/web/
 **Reel:** [`reel/reel.mp4`](reel/reel.mp4) (≈50 s, 1080×1920)
-**Publicación de LinkedIn:** _(pendiente: pegar enlace)_
+**Publicación de LinkedIn:** https://lnkd.in/p/g5kbA-yP
 
 ## 1. Tema y pregunta de investigación
 
