@@ -1,6 +1,7 @@
 # Tarea 3 · Inversión pública en el Perú: ¿quién deja el dinero sin gastar?
 
 **Dashboard:** https://alvarorubencarhuamaca.github.io/python_intermedio_qlab/tarea_3/web/
+**Reel:** [`reel/reel.mp4`](reel/reel.mp4) (≈50 s, 1080×1920)
 **Publicación de LinkedIn:** _(pendiente: pegar enlace)_
 
 ## 1. Tema y pregunta de investigación
@@ -92,6 +93,10 @@ python scripts/procesar_datos.py    # genera datos/procesados y web/data/datos.j
 cd tarea_3/reel
 python hacer_reel.py --voz mi_voz.wav --musica recursos/musica.mp3
 ```
+
+Si la laptop no tiene RAM suficiente, el notebook [`reel/generar_reel_colab.ipynb`](reel/generar_reel_colab.ipynb)
+corre lo mismo en Google Colab con GPU (así se generó el reel final). Después se corrigió a mano un subtítulo que Whisper
+transcribió mal («cada uno» → «cada diez») y la tilde de «Áncash», y se añadió un cierre de 4 s con el enlace al dashboard.
 
 `hacer_reel.py` reutiliza `reel.py` de la [Sesión 15](https://github.com/d2cml-ai/Data-Science-Python/tree/main/sessions/15-texto-a-reel)
 para la voz clonada (Qwen3-TTS) y los subtítulos (Whisper). Sobre eso arma el video con imágenes del dashboard, un zoom suave,

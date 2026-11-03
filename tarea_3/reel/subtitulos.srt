@@ -1,0 +1,147 @@
+1
+00:00:00,000 --> 00:00:01,379
+En dos mil veinticinco,
+
+2
+00:00:01,540 --> 00:00:02,640
+el Perú dejó sin
+
+3
+00:00:02,640 --> 00:00:04,120
+ejecutar doce mil millones
+
+4
+00:00:04,120 --> 00:00:05,059
+de soles de inversión
+
+5
+00:00:05,059 --> 00:00:05,459
+pública.
+
+6
+00:00:05,759 --> 00:00:07,179
+¿Quién dejó ese dinero
+
+7
+00:00:07,179 --> 00:00:07,900
+sobre la mesa?
+
+8
+00:00:08,640 --> 00:00:10,300
+Analicé los datos del
+
+9
+00:00:10,300 --> 00:00:11,859
+Ministerio de Economía para
+
+10
+00:00:11,859 --> 00:00:13,320
+los veinticinco departamentos,
+
+11
+00:00:13,539 --> 00:00:14,859
+entre dos mil diecinueve
+
+12
+00:00:14,859 --> 00:00:15,980
+y dos mil veintiséis.
+
+13
+00:00:16,780 --> 00:00:17,960
+La buena noticia:
+
+14
+00:00:18,199 --> 00:00:19,559
+la ejecución subió de
+
+15
+00:00:19,559 --> 00:00:21,000
+sesenta y cuatro a
+
+16
+00:00:21,000 --> 00:00:22,199
+casi ochenta y cuatro
+
+17
+00:00:22,199 --> 00:00:22,800
+por ciento.
+
+18
+00:00:23,559 --> 00:00:25,000
+Pero las municipalidades
+
+19
+00:00:25,000 --> 00:00:25,719
+se quedan atrás.
+
+20
+00:00:26,199 --> 00:00:27,440
+Ejecutan solo setenta y
+
+21
+00:00:27,440 --> 00:00:28,559
+tres por ciento y
+
+22
+00:00:28,559 --> 00:00:29,839
+concentran casi siete de
+
+23
+00:00:29,839 --> 00:00:31,239
+cada diez soles no
+
+24
+00:00:31,239 --> 00:00:31,940
+ejecutados.
+
+25
+00:00:32,500 --> 00:00:33,899
+Y las brechas siguen.
+
+26
+00:00:34,380 --> 00:00:35,500
+Tacna y Piura superan
+
+27
+00:00:35,500 --> 00:00:36,479
+el ochenta y ocho
+
+28
+00:00:36,479 --> 00:00:36,979
+por ciento.
+
+29
+00:00:37,420 --> 00:00:38,439
+Ica y Áncash se
+
+30
+00:00:38,439 --> 00:00:39,380
+quedan en setenta y
+
+31
+00:00:39,380 --> 00:00:40,060
+seis y medio.
+
+32
+00:00:40,560 --> 00:00:41,539
+Explora los datos de
+
+33
+00:00:41,539 --> 00:00:42,380
+tu región en mi
+
+34
+00:00:42,380 --> 00:00:42,759
+dashboard.
+
+35
+00:00:43,219 --> 00:00:43,859
+El enlace está en
+
+36
+00:00:43,859 --> 00:00:44,460
+la publicación.
+
+37
+00:00:45,840 --> 00:00:49,840
+Explora el dashboard: alvarorubencarhuamaca.github.io/python_intermedio_qlab/tarea_3/web

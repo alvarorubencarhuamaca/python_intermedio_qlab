@@ -5,37 +5,43 @@
       "frase": "En dos mil veinticinco, el Perú dejó sin ejecutar doce mil millones de soles de inversión pública. ¿Quién dejó ese dinero sobre la mesa?",
       "cifra": "S/ 12 mil millones",
       "etiqueta": "Inversión no ejecutada en 2025",
-      "imagen": "recursos/escena1.png"
+      "imagen": "recursos/escena1.png",
+      "wer": 0.0
     },
     {
       "frase": "Analicé los datos del Ministerio de Economía para los veinticinco departamentos, entre dos mil diecinueve y dos mil veintiséis.",
       "cifra": "25 departamentos",
       "etiqueta": "2019-2026, tres niveles de gobierno",
-      "imagen": "recursos/escena2.png"
+      "imagen": "recursos/escena2.png",
+      "wer": 0.0
     },
     {
       "frase": "La buena noticia: la ejecución subió de sesenta y cuatro a casi ochenta y cuatro por ciento.",
       "cifra": "64% → 84%",
       "etiqueta": "Avance de ejecución de la inversión",
-      "imagen": "recursos/escena3.png"
+      "imagen": "recursos/escena3.png",
+      "wer": 0.11764705882352941
     },
     {
       "frase": "Pero las municipalidades se quedan atrás: ejecutan solo setenta y tres por ciento y concentran casi siete de cada diez soles no ejecutados.",
       "cifra": "73%",
       "etiqueta": "Avance de los gobiernos locales en 2025",
-      "imagen": "recursos/escena4.png"
+      "imagen": "recursos/escena4.png",
+      "wer": 0.0
     },
     {
       "frase": "Y las brechas siguen: Tacna y Piura superan el ochenta y ocho por ciento; Ica y Áncash se quedan en setenta y seis y medio.",
       "cifra": "13 puntos",
       "etiqueta": "Brecha entre departamentos en 2025",
-      "imagen": "recursos/escena5.png"
+      "imagen": "recursos/escena5.png",
+      "wer": 0.12
     },
     {
       "frase": "Explora los datos de tu región en mi dashboard. El enlace está en la publicación.",
       "cifra": "",
       "etiqueta": "Dashboard: enlace en la publicación",
-      "imagen": "recursos/escena6.png"
+      "imagen": "recursos/escena6.png",
+      "wer": 0.0
     }
   ],
   "fuente": "Consulta Amigable - MEF, descarga del 02/11/2026",
